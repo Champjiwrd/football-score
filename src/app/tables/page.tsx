@@ -113,7 +113,13 @@ export default async function tables() {
                       (match: any, matchIndex: number) => {
                         return (
                           <Grid item key={matchIndex}>
-                            {match && <CustomTooltip match={match} />}
+                            {match && (
+                              <CustomTooltip
+                                teamName={row.tournament_team_name_en}
+                                teamLogo={row.tournament_team_logo}
+                                match={match}
+                              />
+                            )}
                           </Grid>
                         );
                       }
