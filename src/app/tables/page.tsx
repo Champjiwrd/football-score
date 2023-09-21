@@ -1,6 +1,5 @@
 import Container from '@mui/material/Container';
 import Image from 'next/image';
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,7 +7,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Box, Grid } from '@mui/material/';
+import { Box, Grid, Typography, Button } from '@mui/material/';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
+import CustomTooltip from '../components/customTooltip';
+import { useState } from 'react';
+
 async function getStageStanding() {
   const res = await fetch(
     `https://competition.tl.prod.c0d1um.io/thaileague/api/stage-standing-public/?tournament=175`
@@ -24,18 +28,48 @@ export default async function tables() {
         <Table sx={{ minWidth: 650 }} aria-label='simple table'>
           <TableHead sx={{ height: '31px' }}>
             <TableRow sx={{ background: '#fbfafa' }}>
-              <TableCell align='center'>Position</TableCell>
-              <TableCell>Club</TableCell>
-              <TableCell align='center'>Played</TableCell>
-              <TableCell align='center'>Won</TableCell>
-              <TableCell align='center'>Drawn</TableCell>
-              <TableCell align='center'>Lost</TableCell>
-              <TableCell align='center'>GF</TableCell>
-              <TableCell align='center'>GA</TableCell>
-              <TableCell align='center'>GD</TableCell>
-              <TableCell align='center'>Points</TableCell>
-              <TableCell align='center'>Form</TableCell>
-              <TableCell align='center'>Next</TableCell>
+              <TableCell align='center'>
+                <b>Position</b>
+              </TableCell>
+              <TableCell>
+                <b>Club</b>
+              </TableCell>
+              <TableCell align='center'>
+                <b>Played</b>
+              </TableCell>
+              <TableCell align='center'>
+                <b>Won</b>
+              </TableCell>
+              <TableCell align='center'>
+                <b>Drawn</b>
+              </TableCell>
+              <TableCell align='center'>
+                <b>Lost</b>
+              </TableCell>
+              <TableCell align='center'>
+                <b>GF</b>
+              </TableCell>
+              <TableCell align='center'>
+                <b>GA</b>
+              </TableCell>
+              <TableCell align='center'>
+                <b>GD</b>
+              </TableCell>
+              <TableCell align='center'>
+                <b>Points</b>
+              </TableCell>
+              <TableCell
+                sx={{ display: { xs: 'none', lg: 'table-cell' } }}
+                align='center'
+              >
+                <b>Form</b>
+              </TableCell>
+              <TableCell align='center'>
+                <b>Next</b>
+              </TableCell>
+              <TableCell align='center'>
+                <b>More</b>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -47,15 +81,17 @@ export default async function tables() {
                 <TableCell component='th' scope='row' align='center'>
                   {index + 1}
                 </TableCell>
-                <TableCell style={{ display: 'flex', alignItems: 'center' }}>
-                  <Image
-                    src={row.tournament_team_logo}
-                    alt={row.tournament_team_name_en}
-                    width={32}
-                    height={32}
-                  />
-                  <Box sx={{ marginLeft: '16px' }} display='inline'>
-                    {row.tournament_team_name_en}
+                <TableCell>
+                  <Box style={{ display: 'flex', alignItems: 'center' }}>
+                    <Image
+                      src={row.tournament_team_logo}
+                      width={32}
+                      height={32}
+                      alt={row.tournament_team_name_en}
+                    />
+                    <Box sx={{ marginLeft: '16px' }} display='inline'>
+                      {row.tournament_team_name_en}
+                    </Box>
                   </Box>
                 </TableCell>
                 <TableCell align='center'>{row.match_play}</TableCell>
@@ -68,33 +104,16 @@ export default async function tables() {
                 <TableCell align='center'>
                   <b>{row.point}</b>
                 </TableCell>
-                <TableCell align='center'>
+                <TableCell
+                  sx={{ display: { xs: 'none', lg: 'table-cell' } }}
+                  align='center'
+                >
                   <Grid container spacing={1}>
                     {row.last_match_result.map(
                       (match: any, matchIndex: number) => {
-                        const color: string =
-                          match.result === 'W'
-                            ? '#00db74'
-                            : match.result === 'D'
-                            ? '#c3b3c5'
-                            : '#e0005e';
                         return (
                           <Grid item key={matchIndex}>
-                            <Box
-                              sx={{
-                                background: color,
-                                width: '26px',
-                                height: '26px',
-                                borderRadius: '50%',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'white',
-                              }}
-                              display='inline'
-                            >
-                              {match.result}
-                            </Box>
+                            {match && <CustomTooltip match={match} />}
                           </Grid>
                         );
                       }
@@ -113,6 +132,9 @@ export default async function tables() {
                     height={25}
                     alt={row.home_team_name_en}
                   />
+                </TableCell>
+                <TableCell align='center'>
+                  <KeyboardArrowDownIcon />
                 </TableCell>
               </TableRow>
             ))}

@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 import { Mitr, Roboto } from 'next/font/google';
 
-const inter = Mitr({ weight: '400', subsets: ['latin'], display: 'swap' });
+const mitr = Mitr({ weight: '400', subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
   title: 'Thai League',
@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' className={inter.className}>
+    <html lang='en' className={mitr.className}>
       <body>{children}</body>
     </html>
   );
