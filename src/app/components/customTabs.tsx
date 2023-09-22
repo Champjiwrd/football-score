@@ -9,7 +9,7 @@ const CustomTabs = () => {
   //   const pathname = usePathname();
   //   console.log(pathname);
   return (
-    <Tabs value={tab}>
+    <Tabs value={tab} textColor='secondary' indicatorColor='secondary'>
       <Tab
         value='/'
         label='Home'

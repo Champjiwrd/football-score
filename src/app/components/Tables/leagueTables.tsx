@@ -12,6 +12,7 @@ import {
   Box,
   useMediaQuery,
   Paper,
+  Stack,
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NextMatch from '../nextMatchTooltip';
@@ -26,11 +27,64 @@ const LeagueTables: React.FC<LeagueTablesProps> = ({ data }) => {
   const theme = useTheme();
   // console.log(theme);
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const headers: { title: string; short?: string }[] = [
+    {
+      title: 'Position',
+    },
+    {
+      title: 'Club',
+    },
+    {
+      title: 'Played',
+      short: 'Pl',
+    },
+    {
+      title: 'Won',
+      short: 'W',
+    },
+    {
+      title: 'Drawn',
+      short: 'D',
+    },
+    {
+      title: 'Lost',
+      short: 'L',
+    },
+    {
+      title: 'GF',
+    },
+    {
+      title: 'GA',
+    },
+    {
+      title: 'GD',
+    },
+    {
+      title: 'Points',
+      short: 'Pts',
+    },
+    {
+      title: 'Form',
+    },
+    {
+      title: 'Next',
+    },
+    {
+      title: 'More',
+    },
+  ];
   return (
     <TableContainer sx={{ boxShadow: 'none', width: '100%' }} component={Paper}>
       <Table aria-label='simple table'>
         <TableHead sx={{ height: '31px' }}>
           <TableRow sx={{ background: '#fbfafa' }}>
+            {/* {headers.map((header, indexHeader) => (
+              <TableCell key={indexHeader} align='center'>
+                <Typography sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
+                  <b>{matches ? header.short : header.title}</b>
+                </Typography>
+              </TableCell>
+            ))} */}
             <TableCell align='center'>
               <Typography sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
                 <b>{matches ? '' : 'Position'}</b>
@@ -134,23 +188,20 @@ const LeagueTables: React.FC<LeagueTablesProps> = ({ data }) => {
                 sx={{ display: { xs: 'none', lg: 'table-cell' } }}
                 align='center'
               >
-                <Grid container spacing={1}>
+                <Stack direction='row' alignItems='center' spacing={0.5}>
                   {row.last_match_result.map(
                     (match: any, matchIndex: number) => {
                       return (
-                        <Grid item key={matchIndex}>
-                          {match && (
-                            <CustomTooltip
-                              teamName={row.tournament_team_name_en}
-                              teamLogo={row.tournament_team_logo}
-                              match={match}
-                            />
-                          )}
-                        </Grid>
+                        <CustomTooltip
+                          key={matchIndex}
+                          teamName={row.tournament_team_name_en}
+                          teamLogo={row.tournament_team_logo}
+                          match={match}
+                        />
                       );
                     }
                   )}
-                </Grid>
+                </Stack>
               </TableCell>
               <TableCell
                 sx={{ display: { xs: 'none', lg: 'table-cell' } }}
@@ -162,7 +213,7 @@ const LeagueTables: React.FC<LeagueTablesProps> = ({ data }) => {
                 />
               </TableCell>
               <TableCell align='center'>
-                <KeyboardArrowDownIcon />
+                <KeyboardArrowDownIcon sx={{ cursor: 'pointer' }} />
               </TableCell>
             </TableRow>
           ))}
