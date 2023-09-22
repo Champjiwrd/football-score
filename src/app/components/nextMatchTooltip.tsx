@@ -54,102 +54,100 @@ const NextMatch: React.FC<NextMatchProps> = ({ match, teamName }) => {
   );
   const logoSize = 40;
   return (
-    <div>
-      <HtmlTooltip
-        placement='top-end'
-        arrow
-        title={
-          <React.Fragment>
+    <HtmlTooltip
+      placement='top-end'
+      arrow
+      title={
+        <React.Fragment>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              padding: '10px',
+              '&:hover': {
+                opacity: 1,
+                color: 'white',
+                backgroundImage:
+                  'linear-gradient(137.27deg, #F90606 0.85%, #B40606 91.08%, #500404 150.26%)',
+              },
+            }}
+          >
+            <Box sx={{ fontSize: '10px' }}>{matchDate}</Box>
             <Box
               sx={{
                 display: 'flex',
-                flexDirection: 'column',
                 alignItems: 'center',
-                padding: '10px',
-                '&:hover': {
-                  opacity: 1,
-                  color: 'white',
-                  backgroundImage:
-                    'linear-gradient(137.27deg, #F90606 0.85%, #B40606 91.08%, #500404 150.26%)',
-                },
+                justifyContent: 'center',
+                marginTop: '10px',
               }}
             >
-              <Box sx={{ fontSize: '10px' }}>{matchDate}</Box>
+              <Box>
+                {match.home_team_name_en && match.home_team_logo && (
+                  <Image
+                    src={match.home_team_logo}
+                    width={logoSize}
+                    height={logoSize}
+                    alt='home team'
+                  />
+                )}
+              </Box>
               <Box
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginTop: '10px',
+                  // color: 'white',
+                  padding: '5px',
+                  borderRadius: '4px',
+                  marginX: '5px',
+                  // paddingX: '10px',
+                  border: '1px solid #dadde9',
                 }}
               >
-                <Box>
-                  {match.home_team_name_en && match.home_team_logo && (
-                    <Image
-                      src={match.home_team_logo}
-                      width={logoSize}
-                      height={logoSize}
-                      alt='home team'
-                    />
-                  )}
-                </Box>
-                <Box
-                  sx={{
-                    // color: 'white',
-                    padding: '5px',
-                    borderRadius: '4px',
-                    marginX: '5px',
-                    // paddingX: '10px',
-                    border: '1px solid #dadde9',
-                  }}
-                >
-                  <div>{timeStart}</div>
-                </Box>
-                <Box>
-                  {match.away_team_name_en && match.away_team_logo && (
-                    <Image
-                      src={match.away_team_logo}
-                      width={logoSize}
-                      height={logoSize}
-                      alt='away team'
-                    />
-                  )}
-                </Box>
+                <div>{timeStart}</div>
+              </Box>
+              <Box>
+                {match.away_team_name_en && match.away_team_logo && (
+                  <Image
+                    src={match.away_team_logo}
+                    width={logoSize}
+                    height={logoSize}
+                    alt='away team'
+                  />
+                )}
               </Box>
             </Box>
-            {/* <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '}
+          </Box>
+          {/* <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '}
             {"It's very engaging. Right?"} */}
-          </React.Fragment>
-        }
+        </React.Fragment>
+      }
+    >
+      <Box
+        sx={{
+          background: 'white',
+          width: '26px',
+          height: '26px',
+          borderRadius: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'white',
+          cursor: 'pointer',
+        }}
+        display='inline'
       >
-        <Box
-          sx={{
-            background: 'white',
-            width: '26px',
-            height: '26px',
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            cursor: 'pointer',
-          }}
-          display='inline'
-        >
-          <Image
-            src={
-              match.home_team_name_en === teamName
-                ? match.away_team_logo
-                : match.home_team_logo
-            }
-            width={25}
-            height={25}
-            alt={teamName}
-          />
-          {/* {match.result} */}
-        </Box>
-      </HtmlTooltip>
-    </div>
+        <Image
+          src={
+            match.home_team_name_en === teamName
+              ? match.away_team_logo
+              : match.home_team_logo
+          }
+          width={25}
+          height={25}
+          alt={teamName}
+        />
+        {/* {match.result} */}
+      </Box>
+    </HtmlTooltip>
   );
 };
 export default NextMatch;
