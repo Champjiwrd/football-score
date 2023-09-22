@@ -1,14 +1,15 @@
+'use client';
 // import Image from 'next/image';
 // import styles from './page.module.css';
-interface Response {
-  id: number;
-  name: string;
-  name_en: string;
-  logo: string;
-  club_id: string;
-}
-export default function Home() {
-  console.log('test');
+import { Container } from '@mui/material';
+import CustomTabs from './components/customTabs';
 
-  return <main>test</main>;
+export default function Home() {
+  return (
+    <main>
+      <Container>
+        <CustomTabs />
+      </Container>
+    </main>
+  );
 }
