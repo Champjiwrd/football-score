@@ -5,7 +5,8 @@ import CustomTabs from '../components/customTabs';
 import { Box } from '@mui/material';
 async function getStageStanding() {
   const res = await fetch(
-    `https://competition.tl.prod.c0d1um.io/thaileague/api/stage-standing-public/?tournament=175`
+    `https://competition.tl.prod.c0d1um.io/thaileague/api/stage-standing-public/?tournament=175`,
+    { cache: 'no-store' }
   );
   return res.json();
 }
