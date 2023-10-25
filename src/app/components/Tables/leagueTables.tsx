@@ -189,8 +189,9 @@ const LeagueTables: React.FC<LeagueTablesProps> = ({ data }) => {
                 align='center'
               >
                 <Stack direction='row' alignItems='center' spacing={0.5}>
-                  {row.last_match_result.map(
-                    (match: any, matchIndex: number) => {
+                  {row.last_match_result
+                    .slice(0, 5)
+                    .map((match: any, matchIndex: number) => {
                       return (
                         <CustomTooltip
                           key={matchIndex}
@@ -199,8 +200,7 @@ const LeagueTables: React.FC<LeagueTablesProps> = ({ data }) => {
                           match={match}
                         />
                       );
-                    }
-                  )}
+                    })}
                 </Stack>
               </TableCell>
               <TableCell
